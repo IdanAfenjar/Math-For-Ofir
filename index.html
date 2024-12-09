@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+        }
+        .score {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="question" id="question"></div>
+        <input type="text" id="answer" placeholder="Enter your answer" />
+        <br />
+        <button onclick="checkAnswer()">Submit</button>
+        <div class="message" id="message"></div>
+    </div>
+    <script>
+        let num1 = Math.floor(Math.random() * 10);
+        let num2 = Math.floor(Math.random() * 10);
+        let score = 0;
+
+        function updateQuestion() {
+            document.getElementById('question').textContent = `What is ${num1} + ${num2}?`;
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value, 10);
+            const correctAnswer = num1 + num2;
+            const messageElement = document.getElementById('message');
+
+            if (userAnswer === correctAnswer) {
+                messageElement.textContent = 'Correct! Well done!';
+                messageElement.style.color = 'green';
+                score++;
+            } else {
+                messageElement.textContent = `Incorrect. The correct answer was ${correctAnswer}.`;
+                messageElement.style.color = 'red';
+            }
+
+            document.getElementById('score').textContent = score;
+            num1 = Math.floor(Math.random() * 10);
+            num2 = Math.floor(Math.random() * 10);
+            updateQuestion();
+            document.getElementById('answer').value = '';
+        }
+
+        // Initialize the game
+        updateQuestion();
+    </script>
+</body>
+</html>
